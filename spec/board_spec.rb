@@ -36,13 +36,30 @@ RSpec.describe Board do
             expect(@board.valid_placement?(@submarine, ["C1", "B1"])).to eq(false)
             expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A3"])).to eq(true)
         end
-        # it 'cannot be placed on the diagonal' do
-        #     expect(@board.valid_placement?(@cruiser, ["A1", "B2", "C3"])).to eq(false)
-        #     expect(@board.valid_placement?(@submarine, ["C2", "D3"])).to eq(false)
-        # end
-        # it 'is a valid placement' do
-        #     expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to eq(true)
-        #     expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to be(true)
-        # end
+
+        it 'cannot be placed on the diagonal' do
+            expect(@board.valid_placement?(@cruiser, ["A1", "B2", "C3"])).to eq(false)
+            expect(@board.valid_placement?(@submarine, ["C2", "D3"])).to eq(false)
+        end
+
+        it 'is a valid placement' do
+            expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to eq(true)
+            expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to be(true)
+
+        end
+    end
+
+    describe '#horizontal_letter_check?' do
+
+    end
+
+    describe '#vertical_letter_check?' do
+        it 'checks the letter can be vertical' do
+            expect(@board.vertical_letter_check?(["A1", "B1", "C1"])).to eq(true)
+        end
+    end
+
+    describe '#horizontal_number_check?' do
+
     end
 end
