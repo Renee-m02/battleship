@@ -37,7 +37,7 @@ RSpec.describe Board do
             expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A3"])).to eq(true)
         end
 
-        xit 'cannot be placed on the diagonal' do
+        it 'cannot be placed on the diagonal' do
             expect(@board.valid_placement?(@cruiser, ["A1", "B2", "C3"])).to eq(false)
             expect(@board.valid_placement?(@submarine, ["C2", "D3"])).to eq(false)
         end
@@ -76,4 +76,24 @@ RSpec.describe Board do
             expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(false)
         end
     end
-end
+
+    describe '#rendering the board' do
+        it 'renders' do
+            @board.place(@cruiser, ["A1", "A2", "A3"])
+            @board.render
+
+            expect(@board.render).to eq("1234 \nA... . \nB... . \nC... . \nD... = \n" )
+        end 
+                
+        it 'renders true' do
+                @board.place(@cruiser, ["A1", "A2", "A3"])
+                @board.render(true)
+
+                expect(@board.render(true)).to eq(" 1234 \nAS SS. \nB.... \nC.... \nD... - \n") 
+            end
+        end
+    end
+
+    #As we continue to afdd functionality to the game we will fire on Cels and amage their Ships. 
+    #As we do this we need to add new tests for the render method so that it can render with hits, 
+    #misses and sunken ships. 
