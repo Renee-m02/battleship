@@ -57,39 +57,23 @@ RSpec.describe Cell do
         end
     end
 
-    describe '#fire_upon' do
-        it 'show a miss' do
+    describe '#render' do
+        it 'show a hit' do
             @cell_1.place_ship(@cruiser)
             expect(@cell_1.render).to eq(".")
             @cell_1.fire_upon
-            # require 'pry'; binding.pry
-            expect(@cell_1.render).to eq("M")
+            expect(@cell_1.render).to eq("H")
         end
-    end
-
-    describe '#place_ship' do
         it 'show that the ship is in that cell' do
             @cell_2.place_ship(@cruiser)
             expect(@cell_2.render).to eq(".")
-            
             expect(@cell_2.render(true)).to eq("S")
         end
-    end
-
-    describe '#place_ship' do
         it 'show that the ship is hit' do
+            @cell_2.place_ship(@cruiser)
             @cell_2.fire_upon
-            expect(@cell_2.render).to eq ("H")
+            expect(@cell_2.render).to eq("H")
         end
-    end
-
-    describe '#sunk?' do
-        it 'check if the ship is sunk' do
-            @cell_2.fire_upon
-            expect(@cruiser.sunk?).to eq(false)
-        end
-    end
-
         it 'hit and sink the ship' do
             @cell_2.place_ship(@cruiser)
             @cruiser.hit
@@ -99,4 +83,12 @@ RSpec.describe Cell do
             expect(@cell_2.render).to eq("X")
         end
     end
+
+    describe '#sunk?' do
+        it 'check if the ship is sunk' do
+            @cell_2.fire_upon
+            expect(@cruiser.sunk?).to eq(false)
+        end
+    end
+end
 

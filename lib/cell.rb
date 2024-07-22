@@ -31,18 +31,33 @@ class Cell
     @fired_upon
   end
 
-  def render(optional = nil)  
+  def render(optional = nil)
+    # require 'pry'; binding.pry
     if !@fired_upon && !optional
       return "." 
-    elsif !empty? && @fired_upon == true && @ship.sunk? == false
+    elsif empty? && fired_upon?
       return "M"
-    elsif !@fired_up && empty? 
-      return "H" 
-    elsif optional == true 
-      return "S"  
-    elsif !empty? && @ship.health == 0 && @ship.sunk? 
-      return "X" 
+    elsif !empty? && @ship.health == 0 && @ship.sunk? == true
+      return "X"
+    elsif fired_upon? && !empty?
+      return "H"   
+    elsif optional 
+      return "S" 
     end
   end
+
+  # def render(optional = nil)  
+  #   if !@fired_upon && !optional
+  #     return "." 
+  #   elsif !empty? && @fired_upon == true && @ship.sunk? == false
+  #     return "M"
+  #   elsif !@fired_up && empty? 
+  #     return "H" 
+  #   elsif optional == true 
+  #     return "S"  
+  #   elsif !empty? && @ship.health == 0 && @ship.sunk? 
+  #     return "X" 
+  #   end
+  # end
 
 end 
