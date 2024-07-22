@@ -46,7 +46,6 @@ RSpec.describe Board do
             expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to eq(true)
             expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to be(true)
         end
-    end
 
     describe '#place a ship' do
         it 'can place a cruiser on the board' do

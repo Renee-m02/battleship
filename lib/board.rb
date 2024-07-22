@@ -31,69 +31,24 @@ class Board
         end
     end
 
-    def valid_placement?(ship_name, desired_coordinates)
-        result = false
-        length = length_check?(ship_name, desired_coordinates)
-        vertical_letter = vertical_letter_check?(desired_coordinates)
-        horizontal_letter = letter_check?(desired_coordinates)
-        horizontal_number = number_check?(desired_coordinates)
-        if length && horizontal_letter && horizontal_number || vertical_letter
-            result = true
-        end
-       return result
-    end
-    
-    def length_check?(ship_name, desired_coordinates)
-        result = false
-        if desired_coordinates.length == ship_name.length
-            result = true
-        end
-        result
-    end
-    def letter_check?(desired_coordinates)
+    def valid_placement?(ship, desired_coordinates)
         verify = false
-        char_to_check = desired_coordinates[0][0]
+        letters = []
+        numbers = []
         desired_coordinates.each do |coord|
-            if coord[0] == char_to_check
-                verify = true
-            else
-                verify = false
-                break
+            letters << coord[0]
+            numbers << coord[1].to_i
+        end
+        if letters.all?(letters[0])
+            (1..4).each_cons(ship.length) do |x|
+               verify = true if numbers == x
+            end
+        elsif numbers.all?(numbers[0])
+            ("A".."D").each_cons(ship.length) do |y|
+                verify = true if letters == y
             end
         end
-       return verify
+        verify
     end
-    def number_check?(desired_coordinates)
-        verify = false
-        num_to_check = desired_coordinates[0][1].to_i
-        desired_coordinates.shift
-        desired_coordinates.each do |coord|
-            desired_coord = coord[1].to_i == (num_to_check + 1)
-            if desired_coord
-                verify = true
-                num_to_check = coord[1].to_i
-            else
-                verify = false
-                break
-            end
-        end
-        return verify
-    end
-    def vertical_letter_check?(desired_coordinates)
-        verify = false
-        letter_to_check = desired_coordinates[0][0]
-        desired_coordinates.shift
-        desired_coordinates.each do |coord|
-            desired_coord = coord[0] == (letter_to_check.next)
-            # require 'pry'; binding.pry
-            if desired_coord == true
-                verify = true
-                letter_to_check = coord[0]
-            else
-                verify = false
-                break
-            end
-        end
-        return verify
-    end
+
 end
