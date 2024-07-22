@@ -1,7 +1,5 @@
 class Board
-
     attr_reader :cells
-
     def initialize
         @cells = {
             "A1" => Cell.new("A1"),
@@ -22,7 +20,6 @@ class Board
             "D4" => Cell.new("D4")
         }
     end
-
     def valid_coordinate?(coordinate)
         if @cells.include?(coordinate)
             true
@@ -30,7 +27,6 @@ class Board
             false
         end
     end
-
     def valid_placement?(ship, desired_coordinates)
         verify = false
         letters = []
@@ -51,4 +47,11 @@ class Board
         verify
     end
 
+    def place(ship, desired_coordinates)
+        desired_coordinates.each do |coordinate|
+            @cells[coordinate].place_ship(ship)
+        end
+    end
 end
+
+
