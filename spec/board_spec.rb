@@ -43,7 +43,7 @@ RSpec.describe Board do
         end
 
         it 'is a valid placement' do
-            # expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to eq(true)
+            expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to eq(true)
             expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to be(true)
         end
     end
@@ -86,10 +86,10 @@ RSpec.describe Board do
         end 
                 
         it 'renders true' do
-                @board.place(@cruiser, ["A1", "A2", "A3"])
-                @board.render(true)
+            @board.place(@cruiser, ["A1", "A2", "A3"])
+            @board.render(true)
 
-                expect(@board.render(true)).to eq(" 1234 \nAS SS. \nB.... \nC.... \nD... - \n") 
+            expect(@board.render(true)).to eq(" 1234 \nAS SS. \nB.... \nC.... \nD... - \n") 
             end
         end
     end
