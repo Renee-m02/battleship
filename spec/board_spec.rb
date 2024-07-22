@@ -70,19 +70,17 @@ RSpec.describe Board do
     end
 
     describe '#rendering the board' do
-        xit 'renders' do
+        it 'renders' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            @board.render
-            expect(@board.render).to eq("1234 \nA... . \nB... . \nC... . \nD... = \n" )
+            expect(@board.render).to eq("1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
         end
 
-        xit 'renders true' do
+        it 'renders true' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            @board.render(true)
-            expect(@board.render(true)).to eq(" 1234 \nAS SS. \nB.... \nC.... \nD... - \n")
+            expect(@board.render(true)).to eq("1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
         end
     end
-    #As we continue to add functionality to the game we will fire on Cells and amage their Ships.
+    #As we continue to add functionality to the game we will fire on Cells and damage their Ships.
     #As we do this we need to add new tests for the render method so that it can render with hits,
     #misses and sunken ships.
 end

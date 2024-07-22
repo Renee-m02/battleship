@@ -9,11 +9,8 @@ class Cell
   end
 
   def empty?
-    if @ship == nil 
-      true
-    else 
-      false
-    end
+    @ship.nil?
+     
   end
 
   def place_ship(cruiser)
@@ -32,16 +29,19 @@ class Cell
   end
 
   def render(optional = nil)
-    if !@fired_upon && !optional
-      return "." 
-    elsif empty? && fired_upon?
+    
+    
+    # require 'pry'; binding.pry
+    if empty? && fired_upon?
       return "M"
     elsif !empty? && @ship.health == 0 && @ship.sunk? == true
       return "X"
     elsif fired_upon? && !empty?
-      return "H"   
-    elsif optional 
+      return "H" 
+    elsif optional == true && !empty?
       return "S" 
+    else
+      return "." 
     end
   end
 
