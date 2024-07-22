@@ -94,6 +94,6 @@ RSpec.describe Board do
         end
     end
 
-    #As we continue to afdd functionality to the game we will fire on Cels and amage their Ships. 
+    #As we continue to add functionality to the game we will fire on Cells and amage their Ships. 
     #As we do this we need to add new tests for the render method so that it can render with hits, 
     #misses and sunken ships. 
