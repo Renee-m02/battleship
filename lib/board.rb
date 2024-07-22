@@ -31,73 +31,25 @@ class Board
         end
     end
 
-
-    def valid_placement?(ship_name, desired_coordinates)
-        cell_keys = @cells.keys
-        result = false
-        
-        if desired_coordinates.length == ship_name.length
-            result = true
-        end
-
-       
-
-
-       
-        horizontal = letter_check?(desired_coordinates)
-        vertical = number_check?(desired_coordinates)
-        # require 'pry'; binding.pry
-
-        if  horizontal && vertical
-            result = true
-        else
-            result = false
-        end
-       
-        
-
-
-    
-
-        return result
-    end
-
-    def letter_check?(desired_coordinates)
+    def valid_placement?(ship, desired_coordinates)
         verify = false
-        char_to_check = desired_coordinates[0][0]
-
+        letters = []
+        numbers = []
         desired_coordinates.each do |coord|
-            # require 'pry'; binding.pry
-            if coord[0] == char_to_check
-                verify = true
-            else
-                verify = false
-                break
+            letters << coord[0]
+            numbers << coord[1].to_i
+        end
+        if letters.all?(letters[0])
+            (1..4).each_cons(ship.length) do |x|
+               verify = true if numbers == x
+            end
+        elsif numbers.all?(numbers[0])
+            ("A".."D").each_cons(ship.length) do |y|
+                verify = true if letters == y
             end
         end
-        # require 'pry'; binding.pry
-
-       return verify
+        verify
     end
 
-    
-    def number_check?(desired_coordinates)
-        verify = false
-        num_to_check = desired_coordinates[0][1].to_i
-        desired_coordinates.shift
 
-        desired_coordinates.each do |coord|
-            x = coord[1].to_i == (num_to_check + 1)
-            # require 'pry'; binding.pry
-            if x
-                verify = true
-                num_to_check = coord[1].to_i
-            else
-                verify = false
-                break
-            end
-        end
-        # require 'pry'; binding.pry
-        return verify
-    end
 end
