@@ -43,46 +43,39 @@ RSpec.describe Board do
     end
 
     describe '#place a ship' do
-    it 'can place a cruiser on the board' do
-        cell_1 = @board.cells["A1"]
-        cell_2 = @board.cells["A2"]
-        cell_3 = @board.cells["A3"]
-        @board.place(@cruiser, ["A1", "A2", "A3"])
-        expect(cell_1.ship).to be (@cruiser)
-        expect(cell_2.ship).to be (@cruiser)
-        expect(cell_3.ship).to be (@cruiser)
-    end
-    
-    it 'can place a submarine on the board' do
-        cell_4 = @board.cells["C1"]
-        cell_5 = @board.cells["D1"]
-        @board.place(@submarine, ["C1", "D1"])
-        expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(true)
+        it 'can place a cruiser on the board' do
+            cell_1 = @board.cells["A1"]
+            cell_2 = @board.cells["A2"]
+            cell_3 = @board.cells["A3"]
+            @board.place(@cruiser, ["A1", "A2", "A3"])
+            expect(cell_1.ship).to be (@cruiser)
+            expect(cell_2.ship).to be (@cruiser)
+            expect(cell_3.ship).to be (@cruiser)
+        end
+
+        it 'can place a submarine on the board' do
+            cell_4 = @board.cells["C1"]
+            cell_5 = @board.cells["D1"]
+            @board.place(@submarine, ["C1", "D1"])
+            expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(true)
+            end
+        end
+
+    describe '#overlapping ships' do
+        it 'checks ship placements to not overlap' do
+            @board.place(@cruiser, ["A1", "A2", "A3"])
+            @board.place(@submarine, ["C1", "D1"])
+            expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(false)
         end
     end
-    
-    #   xit 'overlap' do
-    #     board = Board.new
-    #     cruiser = Ship.new("MemeCruiser", 3)
-    #     cruiser2 = Ship.new("Badcruiser", 3)
-    #     cell_1 = board.cells["C1"]
-    #     board.place(cruiser, ["C1", "C2", "C3"])
-    #     expect(board.valid_placement?(cruiser, ["C1", "C2", "C3"])).to eq(false)
-    #     board.place(cruiser,["C1", "C2", "C3"] )
-    #     expect(cell_1.ship).to eq(cruiser)
-    #   end
 
-    # describe '#overlapping ships' do
-    #     it 'checks ship placements to not overlap' do
-    #         expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(false)
-    #     end
-    # end
     describe '#rendering the board' do
         xit 'renders' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
             @board.render
             expect(@board.render).to eq("1234 \nA... . \nB... . \nC... . \nD... = \n" )
         end
+
         xit 'renders true' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
             @board.render(true)

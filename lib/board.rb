@@ -35,6 +35,7 @@ class Board
             letters << coord[0]
             numbers << coord[1].to_i
         end
+        
         if letters.all?(letters[0])
             (1..4).each_cons(ship.length) do |x|
                verify = true if numbers == x
@@ -43,6 +44,7 @@ class Board
             ("A".."D").each_cons(ship.length) do |y|
                 verify = true if letters == y
             end
+            return false if desired_coordinates.any? {|key| @cells[key].ship != nil}
         end
         verify
     end
