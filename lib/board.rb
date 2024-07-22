@@ -31,39 +31,28 @@ class Board
         end
     end
 
-    # In valid placement we need to show that the cruiser must equal 2 spaces or else false 
-    # AND that the submarine must equal 3 spaces or else false. 
     def valid_placement?(ship_name, desired_coordinates)
+        result = false
+        length = length_check?(ship_name, desired_coordinates)
+        vertical_letter = vertical_letter_check?(desired_coordinates)
+        horizontal_letter = letter_check?(desired_coordinates)
+        horizontal_number = number_check?(desired_coordinates)
+        if length && horizontal_letter && horizontal_number || vertical_letter
+            result = true
+        end
+       return result
+    end
+    
+    def length_check?(ship_name, desired_coordinates)
         result = false
         if desired_coordinates.length == ship_name.length
             result = true
-        else 
-            result = false
         end
-
-        horizontal = horizontal_letter_check?(desired_coordinates) && horizontal_number_check?(desired_coordinates)
-    
-        if  horizontal 
-            result = true
-        else
-            result = false
-        end
-        
-        vertical = vertical_letter_check?(desired_coordinates) && vertical_number_check?(desired_coordinates)
-        
-        if vertical
-            result = true
-        else
-            result = false
-        end
-
-        return result    
+        result
     end
-  
-    def horizontal_letter_check?(desired_coordinates)
+    def letter_check?(desired_coordinates)
         verify = false
         char_to_check = desired_coordinates[0][0]
-
         desired_coordinates.each do |coord|
             if coord[0] == char_to_check
                 verify = true
@@ -72,36 +61,12 @@ class Board
                 break
             end
         end
-
        return verify
     end
-
-    def vertical_letter_check?(desired_coordinates)
-        verify = false
-        letter_to_check = desired_coordinates[0][0]
-        # require 'pry'; binding.pry
-        desired_coordinates.shift
-
-        desired_coordinates.each do |coord|
-            desired_coord = coord[0] == (letter_to_check.next)
-    
-            if desired_coord
-                verify = true
-                letter_to_check = coord[0]
-            else 
-                verify = false
-                break 
-            end
-        end
-        
-        return verify
-    end
-    
-    def horizontal_number_check?(desired_coordinates)
+    def number_check?(desired_coordinates)
         verify = false
         num_to_check = desired_coordinates[0][1].to_i
         desired_coordinates.shift
-
         desired_coordinates.each do |coord|
             desired_coord = coord[1].to_i == (num_to_check + 1)
             if desired_coord
@@ -114,14 +79,16 @@ class Board
         end
         return verify
     end
-
-    def vertical_number_check?(desired_coordinates)
+    def vertical_letter_check?(desired_coordinates)
         verify = false
-        num_to_check = desired_coordinates[0][1]
-
+        letter_to_check = desired_coordinates[0][0]
+        desired_coordinates.shift
         desired_coordinates.each do |coord|
-            if coord[1] == num_to_check
+            desired_coord = coord[0] == (letter_to_check.next)
+            # require 'pry'; binding.pry
+            if desired_coord == true
                 verify = true
+                letter_to_check = coord[0]
             else
                 verify = false
                 break
