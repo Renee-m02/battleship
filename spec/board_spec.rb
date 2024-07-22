@@ -49,24 +49,24 @@ RSpec.describe Board do
     end
 
     describe '#place a ship' do
-        xit 'can place a cruiser on the board' do
+        it 'can place a cruiser on the board' do
             cell_1 = @board.cells["A1"]
             cell_2 = @board.cells["A2"]
             cell_3 = @board.cells["A3"]
 
             @board.place(@cruiser, ["A1", "A2", "A3"])
 
-            expect(cell_1.ship).to be (cruiser)
-            expect(cell_2.ship).to be (cruiser)
-            expect(cell_3.ship).to be (cruiser)
+            expect(cell_1.ship).to be (@cruiser)
+            expect(cell_2.ship).to be (@cruiser)
+            expect(cell_3.ship).to be (@cruiser)
         end
-        xit 'can place a submarine on the board' do
+        it 'can place a submarine on the board' do
             cell_4 = @board.cells["C1"]
             cell_5 = @board.cells["D1"]
 
             @board.place(@submarine, ["C1", "D1"])
 
-            expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(false)
+            expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(true)
         end
     end
 
