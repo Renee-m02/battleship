@@ -51,5 +51,4 @@ class Board
         verify
     end
 
-
 end
