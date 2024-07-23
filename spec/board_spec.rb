@@ -72,12 +72,12 @@ RSpec.describe Board do
     describe '#rendering the board' do
         it 'renders' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            expect(@board.render).to eq("1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+            expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
         end
 
         it 'renders true' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            expect(@board.render(true)).to eq("1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+            expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
         end
     end
     #As we continue to add functionality to the game we will fire on Cells and damage their Ships.

@@ -13,8 +13,8 @@ class Cell
      
   end
 
-  def place_ship(cruiser)
-    @ship = cruiser
+  def place_ship(ship)
+    @ship = ship
   end
   
   def fire_upon
@@ -29,9 +29,6 @@ class Cell
   end
 
   def render(optional = nil)
-    
-    
-    # require 'pry'; binding.pry
     if empty? && fired_upon?
       return "M"
     elsif !empty? && @ship.health == 0 && @ship.sunk? == true

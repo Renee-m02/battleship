@@ -58,7 +58,7 @@ class Board
     end
 
     def render(optional = nil)
-        numbers ="1 2 3 4 \n" 
+        numbers ="  1 2 3 4 \n" 
         row_a = "A #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render} \n"
         row_b = "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \n"
         row_c = "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \n"
@@ -69,7 +69,7 @@ class Board
             row_c = "C #{@cells["C1"].render(true)} #{@cells["C2"].render(true)} #{@cells["C3"].render(true)} #{@cells["C4"].render(true)} \n"
             row_d = "D #{@cells["D1"].render(true)} #{@cells["D2"].render(true)} #{@cells["D3"].render(true)} #{@cells["D4"].render(true)} \n"
         end    
-        p "#{numbers}#{row_a}#{row_b}#{row_c}#{row_d}"
+        "#{numbers}#{row_a}#{row_b}#{row_c}#{row_d}"
     end
-
+    
 end
