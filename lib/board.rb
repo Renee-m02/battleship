@@ -1,5 +1,7 @@
 class Board
+
     attr_reader :cells
+    
     def initialize
         @cells = {
             "A1" => Cell.new("A1"),
@@ -73,5 +75,4 @@ class Board
         end    
         "#{numbers}#{row_a}#{row_b}#{row_c}#{row_d}"
     end
-    
 end
