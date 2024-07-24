@@ -17,9 +17,6 @@ class Battleship
         start
     end
 
-    # run the game
-    # game will require a loop to go until either the computers or the players
-    # ships have been sunk
     def start
         start_screen
         start_input = gets.chomp
@@ -42,9 +39,7 @@ class Battleship
         puts "Enter p to play. Enter q to quit."
     end
 
-    # we need to place a loop in here so that the game restarts with a clean board
     def play_game
-        # computer places ships
         computer_ship_placement(@computer_cruiser)
         computer_ship_placement(@computer_submarine)
         place_ships_message
@@ -54,8 +49,12 @@ class Battleship
         # game_loop
     end
 
-    def computer_ship_placement()
-
+    def computer_ship_placement(ship)
+        random_coords = @computer_board.cells.keys.sample(ship.length)
+        until @computer_board.valid_placement?(ship, random_coords) == true
+            random_coords = @computer_board.cells.keys.sample(ship.length)
+        end
+        @computer_board.place(ship, random_coords)
     end
 
     def place_ships_message
@@ -74,18 +73,19 @@ class Battleship
         if @player_board.valid_placement?(ship, user_input) && user_input.all? { |coord| @player_board.cells.key?(coord) }
             @player_board.place(ship, user_input)
             puts "Your #{ship.name} has been placed."
+        else 
+            until @player_board.valid_placement?(ship, user_input) == true
+                puts "Invalid ship placement. Please try again."
+                user_input = gets.chomp.upcase.split(/\s+/)
+            end
+            @player_board.place(ship, user_input)
         end
     end
-
-    def computer_ship_placement(ship)
-        random_coords = @computer_board.cells.keys.sample(ship.length)
-        until @computer_board.valid_placement?(ship, random_coords) == true
-            random_coords = @computer_board.cells.keys.sample(ship.length)
-        end
-        @computer_board.place(ship, random_coords)
-    end
-
+    
+    # run the game
+    # game will require a loop to go until either the computers or the players
+    # ships have been sunk
     def game_loop
-
+        # we need to place a loop in here so that the game restarts with a clean board
     end
 end
