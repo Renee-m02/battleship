@@ -45,8 +45,8 @@ class Battleship
     # we need to place a loop in here so that the game restarts with a clean board
     def play_game
         # computer places ships
-        # computer_ship_placement(@computer_cruiser)
-        # computer_ship_placement(@computer_submarine)
+        computer_ship_placement(@computer_cruiser)
+        computer_ship_placement(@computer_submarine)
         place_ships_message
         player_ship_placement(@player_cruiser)
         player_ship_placement(@player_submarine)
@@ -70,7 +70,7 @@ class Battleship
         print @player_board.render(true)
         puts "Enter the #{ship.length} squares for the #{ship.name}."
         user_input = gets.chomp.upcase.split(/\s+/)
-        
+
         if @player_board.valid_placement?(ship, user_input) && user_input.all? { |coord| @player_board.cells.key?(coord) }
             @player_board.place(ship, user_input)
             puts "Your #{ship.name} has been placed."
@@ -78,7 +78,11 @@ class Battleship
     end
 
     def computer_ship_placement(ship)
-
+        random_coords = @computer_board.cells.keys.sample(ship.length)
+        until @computer_board.valid_placement?(ship, random_coords) == true
+            random_coords = @computer_board.cells.keys.sample(ship.length)
+        end
+        @computer_board.place(ship, random_coords)
     end
 
     def game_loop
