@@ -46,7 +46,7 @@ class Battleship
         player_ship_placement(@player_cruiser)
         player_ship_placement(@player_submarine)
         print @player_board.render(true)
-        # game_loop
+        game_loop
     end
 
     def computer_ship_placement(ship)
@@ -58,7 +58,7 @@ class Battleship
     end
 
     def place_ships_message
-        puts "-------------------------------------"
+        puts "\n-------------------------------------\n"
         puts "I have laid out my ships on the grid."
         puts "You now need to lay out your two ships."
         puts "The Cruiser is three units long and the Submarine is two units long."
@@ -81,11 +81,54 @@ class Battleship
             @player_board.place(ship, user_input)
         end
     end
-    
+
     # run the game
     # game will require a loop to go until either the computers or the players
     # ships have been sunk
     def game_loop
         # we need to place a loop in here so that the game restarts with a clean board
+        puts "-------------------------------------"
+        puts "Cannons ready!"
+        puts "-------------------------------------"
+        puts 'PLAYER BOARD'
+        print @player_board.render(true)
+        puts 'COMPUTER BOARD'
+        print @computer_board.render
+        until @player_cruiser.sunk? && @player_submarine.sunk? || @computer_cruiser.sunk? && @computer_submarine.sunk?
+            player_turn
+            computer_turn
+        end
+        puts "Game Over!"
+    end
+
+    def player_turn
+        puts "Please enter the coordinate you wish to fire upon."
+        input_coord = gets.chomp.upcase
+        until @computer_board.cells[input_coord].fired_upon? == false && @computer_board.valid_coordinate?(input_coord) == true
+            puts "You have already fired on this coordinate. Please select another one."
+            input_coord = gets.chomp.upcase
+        end
+        @computer_board.cells[input_coord].fire_upon
+        puts "You have fired upon cell #{input_coord}. The result is a #{@computer_board.cells[input_coord].render(true)}."
+        puts "\n-------------------------------------\n"
+        puts 'PLAYER BOARD'
+        print @player_board.render(true)
+        puts 'COMPUTER BOARD'
+        print @computer_board.render
+    end
+
+    def computer_turn
+        puts "It is now my turn to fire."
+        random_shot = @player_board.cells.keys.sample
+        until @player_board.cells[random_shot].fired_upon? == false && @player_board.valid_coordinate?(random_shot) == true
+            random_shot = @player_board.cells.keys.sample
+        end
+        @player_board.cells[random_shot].fire_upon
+        puts "I have fired upon #{random_shot}. The result is a #{@player_board.cells[random_shot].render}"
+        puts "\n-------------------------------------\n"
+        puts 'PLAYER BOARD'
+        print @player_board.render(true)
+        puts 'COMPUTER BOARD'
+        print @computer_board.render
     end
 end
