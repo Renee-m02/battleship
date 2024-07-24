@@ -63,7 +63,7 @@ RSpec.describe Board do
     describe '#overlapping ships' do
         it 'checks ship placements to not overlap' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            @board.place(@submarine, ["C1", "D1"])
+            @board.place(@submarine, ["A1", "B1"])
             expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(false)
         end
     end
