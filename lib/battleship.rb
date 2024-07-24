@@ -5,13 +5,10 @@ require './lib/board'
 class Battleship
 
     def initialize
-        # create new boards
         @player_board = Board.new
         @computer_board = Board.new
-        # players ships
         @player_cruiser = Ship.new("Cruiser", 3)
         @player_submarine = Ship.new("Submarine", 2)
-        # computer ships
         @computer_cruiser = Ship.new("Cruiser", 3)
         @computer_submarine = Ship.new("Submarine", 2)
         start
@@ -20,12 +17,10 @@ class Battleship
     def start
         start_screen
         start_input = gets.chomp
-
         until start_input == "p" || start_input == "q"
             puts "Invalid entry. Please enter 'p' to play or 'q' to quit."
             start_input = gets.chomp.downcase
         end
-
         if start_input.include?("p")
             play_game
         elsif start_input == 'q'
@@ -69,7 +64,6 @@ class Battleship
         print @player_board.render(true)
         puts "Enter the #{ship.length} squares for the #{ship.name}."
         user_input = gets.chomp.upcase.split(/\s+/)
-
         if @player_board.valid_placement?(ship, user_input) && user_input.all? { |coord| @player_board.cells.key?(coord) }
             @player_board.place(ship, user_input)
             puts "Your #{ship.name} has been placed."
@@ -82,11 +76,7 @@ class Battleship
         end
     end
 
-    # run the game
-    # game will require a loop to go until either the computers or the players
-    # ships have been sunk
     def game_loop
-        # we need to place a loop in here so that the game restarts with a clean board
         puts "-------------------------------------"
         puts "Cannons ready!"
         puts "-------------------------------------"
@@ -98,7 +88,11 @@ class Battleship
             player_turn
             computer_turn
         end
-        puts "Game Over!"
+        if @player_cruiser.sunk? && @player_submarine.sunk? 
+            puts "I win! Better luck next time."
+        elsif @computer_cruiser.sunk? && @computer_submarine.sunk?
+            puts "Congratulations! You are the winner!"
+        end
     end
 
     def player_turn

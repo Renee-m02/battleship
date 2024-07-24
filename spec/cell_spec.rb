@@ -12,9 +12,11 @@ RSpec.describe Cell do
         it 'can initialize' do
             expect(@cell).to be_an_instance_of(Cell)
         end
+
         it 'has a coodinate' do
             expect(@cell.coordinate).to eq("B4")
         end
+
         it 'has a ship' do
             expect(@cell.ship).to eq(nil)
         end
@@ -24,6 +26,7 @@ RSpec.describe Cell do
         it 'has no ship' do
             expect(@cell.empty?).to eq(true)
         end
+
         it 'has a ship' do
             @cell.place_ship(@cruiser)
             expect(@cell.empty?).to eq(false)
@@ -64,16 +67,19 @@ RSpec.describe Cell do
             @cell_1.fire_upon
             expect(@cell_1.render).to eq("H")
         end
+
         it 'show that the ship is in that cell' do
             @cell_2.place_ship(@cruiser)
             expect(@cell_2.render).to eq(".")
             expect(@cell_2.render(true)).to eq("S")
         end
+
         it 'show that the ship is hit' do
             @cell_2.place_ship(@cruiser)
             @cell_2.fire_upon
             expect(@cell_2.render).to eq("H")
         end
+
         it 'hit and sink the ship' do
             @cell_2.place_ship(@cruiser)
             @cruiser.hit
@@ -91,4 +97,3 @@ RSpec.describe Cell do
         end
     end
 end
-
