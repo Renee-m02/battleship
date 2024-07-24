@@ -58,7 +58,7 @@ class Battleship
     end
 
     def place_ships_message
-        puts "-------------------------------------"
+        puts "\n-------------------------------------\n"
         puts "I have laid out my ships on the grid."
         puts "You now need to lay out your two ships."
         puts "The Cruiser is three units long and the Submarine is two units long."
@@ -110,7 +110,7 @@ class Battleship
         end
         @computer_board.cells[input_coord].fire_upon
         puts "You have fired upon cell #{input_coord}. The result is a #{@computer_board.cells[input_coord].render(true)}."
-        puts "-------------------------------------"
+        puts "\n-------------------------------------\n"
         puts 'PLAYER BOARD'
         print @player_board.render(true)
         puts 'COMPUTER BOARD'
@@ -125,7 +125,7 @@ class Battleship
         end
         @player_board.cells[random_shot].fire_upon
         puts "I have fired upon #{random_shot}. The result is a #{@player_board.cells[random_shot].render}"
-        puts "-------------------------------------"
+        puts "\n-------------------------------------\n"
         puts 'PLAYER BOARD'
         print @player_board.render(true)
         puts 'COMPUTER BOARD'
