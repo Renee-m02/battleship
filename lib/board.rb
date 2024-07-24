@@ -46,7 +46,9 @@ class Board
             ("A".."D").each_cons(ship.length) do |y|
                 verify = true if letters == y
             end
-            return false if desired_coordinates.any? {|key| @cells[key].ship != nil}
+        end
+        if desired_coordinates.any? {|key| @cells[key].ship != nil}
+            verify = false
         end
         verify
     end
